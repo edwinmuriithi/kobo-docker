@@ -2,13 +2,20 @@
 version: '3'
 
 services:
+  backend:
+    image: kobotoolbox/kobocat
+    ports:
+      - 8000:8000
+    env_file:
+      - dev.env
+    restart: always
+    command: python manage.py runserver 0.0.0.0:8000
+
   postgres:
     image: postgis/postgis:14-3.2
     hostname: postgres
     env_file:
-      - ../kobo-env/envfiles/domains.txt
-      - ../kobo-env/envfiles/databases.txt
-      - ../kobo-env/envfiles/aws.txt
+      - dev.env
     volumes:
       - ./.vols/db:/var/lib/postgresql/data
       - ./backups/postgres:/srv/backups
@@ -21,12 +28,8 @@ services:
   mongo:
     image: mongo:5.0
     hostname: mongo
-    environment:
-      - MONGO_DATA=/data/db
     env_file:
-      - ../kobo-env/envfiles/domains.txt
-      - ../kobo-env/envfiles/databases.txt
-      - ../kobo-env/envfiles/aws.txt
+      - dev.env
     volumes:
       - ./.vols/mongo:/data/db
       - ./backups/mongo:/srv/backups
@@ -39,11 +42,7 @@ services:
   redis_main:
     image: redis:7.2
     env_file:
-      - ../kobo-env/envfiles/domains.txt
-      - ../kobo-env/envfiles/databases.txt
-      - ../kobo-env/envfiles/aws.txt
-    environment:
-      - KOBO_REDIS_SERVER_ROLE=main
+      - dev.env
     volumes:
       - ./redis:/kobo-docker-scripts
       - ./backups/redis:/srv/backups
@@ -60,9 +59,7 @@ services:
   redis_cache:
     image: redis:7.2
     env_file:
-      - ../kobo-env/envfiles/databases.txt
-    environment:
-      - KOBO_REDIS_SERVER_ROLE=cache
+      - dev.env
     volumes:
       - ./.vols/redis_cache_data/:/data/
       - ./redis/redis-enketo-cache.conf.tmpl:/etc/redis/redis.conf.tmpl:ro
