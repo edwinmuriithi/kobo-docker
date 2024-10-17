@@ -121,12 +121,12 @@ Samples are provided. Remove `.sample` extension and update them to match your e
 
     ```
     # Start
-    $kobo-docker> docker-compose -f docker-compose.frontend.yml -f docker-compose.frontend.override.yml up -d  
-    $kobo-docker> docker-compose -f docker-compose.backend.primary.yml -f docker-compose.backend.primary.override.yml up -d
+    $kobo-docker> docker-compose -f docker-compose.frontend.yml up -d  
+    $kobo-docker> docker-compose -f docker-compose.backend.yml up -d
    
     # Stop
-    $kobo-docker> docker-compose -f docker-compose.frontend.yml -f docker-compose.frontend.override.yml stop  
-    $kobo-docker> docker-compose -f docker-compose.backend.primary.yml -f docker-compose.backend.primary.override.yml stop
+    $kobo-docker> docker-compose -f docker-compose.frontend.yml stop  
+    $kobo-docker> docker-compose -f docker-compose.backend.yml stop
     ```
 
 1. **Backups**
