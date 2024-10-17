@@ -1,0 +1,36 @@
+# Scheme (http or https) for public access
+PUBLIC_REQUEST_SCHEME=https
+
+# Internal domain for KPI service
+INTERNAL_DOMAIN_NAME=kpi.internal
+
+# External/public domain for accessing KPI
+PUBLIC_DOMAIN_NAME=http://kpi.example.com
+
+# Public subdomain for KoboForm (KPI)
+KOBOFORM_PUBLIC_SUBDOMAIN=kpi
+
+# Public subdomain for KoboCAT (file storage service)
+KOBOCAT_PUBLIC_SUBDOMAIN=kobocat
+
+# Public subdomain for Enketo Express (form engine)
+ENKETO_EXPRESS_PUBLIC_SUBDOMAIN=enketo
+
+# External/public domain for accessing KoboCAT
+KOBOCAT_PUBLIC_DOMAIN_NAME=http://kobocat.example.com
+
+# External/public domain for accessing Enketo Express
+ENKETO_EXPRESS_PUBLIC_DOMAIN_NAME=http://enketo.example.com
+
+# Backend services
+# Hostname for Postgres
+POSTGRES_HOSTNAME=postgres.internal
+
+# Hostname for Mongo
+MONGO_HOSTNAME=mongo.internal
+
+# Hostname for Redis main
+REDIS_MAIN_HOSTNAME=redis-main.internal
+
+# Hostname for Redis cache
+REDIS_CACHE_HOSTNAME=redis-cache.internal

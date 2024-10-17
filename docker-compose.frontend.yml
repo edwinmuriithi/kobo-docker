@@ -1,4 +1,4 @@
-# NOTE: Generate `../kobo-env/` environment files using
+# NOTE: Generate `./kobo-env/` environment files using
 # https://github.com/kobotoolbox/kobo-install. You may manually customize the
 # files afterwards and stop using kobo-install if necessary.
 version: '3'
@@ -9,7 +9,12 @@ services:
     init: true
     hostname: kpi
     env_file:
-      - dev.env
+      - ./kobo-env/envfiles/aws.txt
+      - ./kobo-env/envfiles/databases.txt
+      - ./kobo-env/envfiles/django.txt
+      - ./kobo-env/envfiles/external_services.txt
+      - ./kobo-env/envfiles/domains.txt
+      - ./kobo-env/envfiles/smtp.txt
     sysctls:
       - net.core.somaxconn=2048
     environment:
@@ -57,9 +62,12 @@ services:
     image: nginx:1.26
     hostname: nginx
     env_file:
-      - dev.env
+      - ./kobo-env/envfiles/domains.txt
+      - ./kobo-env/envfiles/databases.txt
+      - ./kobo-env/envfiles/django.txt
     environment:
       - UWSGI_PASS_TIMEOUT=130
+      - NGINX_HOST=foobar.com
       - TEMPLATED_VAR_REFS=$${PUBLIC_REQUEST_SCHEME} $${INTERNAL_DOMAIN_NAME} $${PUBLIC_DOMAIN_NAME} $${KOBOFORM_PUBLIC_SUBDOMAIN} $${KOBOCAT_PUBLIC_SUBDOMAIN} $${ENKETO_EXPRESS_PUBLIC_SUBDOMAIN}
     volumes:
         - ./.vols/static:/srv/www:ro
@@ -80,10 +88,10 @@ services:
     init: true
     hostname: enketo_express
     env_file:
-      - dev.env
+      - ./kobo-env/envfiles/domains.txt
     restart: unless-stopped
     volumes:
-      - ../kobo-env/enketo_express/config.json:/srv/src/enketo_express/config/config.json
+      - ./kobo-env/enketo_express/config.json:/srv/src/enketo_express/config/config.json
     networks:
       kobo-fe-network:
         aliases:
