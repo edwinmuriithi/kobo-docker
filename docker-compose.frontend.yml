@@ -87,8 +87,8 @@ services:
     image: kobotoolbox/enketo-express-extra-widgets:6.2.2
     init: true
     hostname: enketo_express
-    # env_file:
-      # - ./kobo-env/envfiles/domains.txt
+    env_file:
+      - ./kobo-env/envfiles/domains.txt
     restart: unless-stopped
     volumes:
       - ./kobo-env/enketo_express/config.json:/srv/src/enketo_express/config/config.json
