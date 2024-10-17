@@ -9,12 +9,7 @@ services:
     init: true
     hostname: kpi
     env_file:
-      - ../kobo-env/envfiles/aws.txt
-      - ../kobo-env/envfiles/databases.txt
-      - ../kobo-env/envfiles/django.txt
-      - ../kobo-env/envfiles/external_services.txt
-      - ../kobo-env/envfiles/domains.txt
-      - ../kobo-env/envfiles/smtp.txt
+      - dev.env
     sysctls:
       - net.core.somaxconn=2048
     environment:
@@ -62,9 +57,7 @@ services:
     image: nginx:1.26
     hostname: nginx
     env_file:
-      - ../kobo-env/envfiles/domains.txt
-      - ../kobo-env/envfiles/databases.txt
-      - ../kobo-env/envfiles/django.txt
+      - dev.env
     environment:
       - UWSGI_PASS_TIMEOUT=130
       - TEMPLATED_VAR_REFS=$${PUBLIC_REQUEST_SCHEME} $${INTERNAL_DOMAIN_NAME} $${PUBLIC_DOMAIN_NAME} $${KOBOFORM_PUBLIC_SUBDOMAIN} $${KOBOCAT_PUBLIC_SUBDOMAIN} $${ENKETO_EXPRESS_PUBLIC_SUBDOMAIN}
@@ -87,7 +80,7 @@ services:
     init: true
     hostname: enketo_express
     env_file:
-      - ../kobo-env/envfiles/domains.txt
+      - dev.env
     restart: unless-stopped
     volumes:
       - ../kobo-env/enketo_express/config.json:/srv/src/enketo_express/config/config.json
